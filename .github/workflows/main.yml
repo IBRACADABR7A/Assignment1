@@ -1,38 +1,41 @@
-name: CICD
-
+name: CICD #namnet  på filen.
+#bibliotek
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+#att sätta upp github sidor (tillstånd).
 permissions:
   id-token: write
   pages: write
   contents: read
+#vilket uppgifter ska vi köra i denna. 
 jobs:
   build:
-    # The type of runner that the job will run on
+   #ubuntu (linux) är billig och enkel. 
    runs-on: ubuntu-latest 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  #arbetsuppgifterna:
    steps:
+   #checka att repository funkar!
    - name: Checkout repository
      uses: actions/checkout@v2
       # lägg till create csv file (glöm inte pip install)
       # lägg till Create JSON file
       # Köra ehnetstester 
-   - name: Copy to dist
+   - name: Copy to dist #kopiera till mappen
      run: |
           mkdir dist
           cp index.html dist/index.html
           cp data.json dist/data.json
           cp script.js dist/script.js  
    - name: Setup Pages
-     uses: actions/configure-pages@v5
+     uses: actions/configure-pages@v5 #färdig funktion. 
    - name: Upload artifact
      uses: actions/upload-pages-artifact@v3
      with:
           path: 'dist'
-   - name: Deploy to GitHub Pages
+   - name: Deploy to GitHub Pages #deploy 
      id: deployment
      uses: actions/deploy-pages@v4
      
